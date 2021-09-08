@@ -417,6 +417,7 @@ impl<Z: Zip> EpubBuilder<Z> {
             if let Some(reftype) = content.reftype {
                 use epub_content::ReferenceType::*;
                 let reftype = match reftype {
+                    Afterword => "afterword",
                     Cover => "cover",
                     TitlePage => "title-page",
                     Toc => "toc",
