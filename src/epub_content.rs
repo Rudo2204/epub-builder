@@ -8,13 +8,15 @@ use std::io::Read;
 
 /// Represents the possible reference type of an EPUB page.
 ///
-/// Used by the guide section of EPUB 2.0 and the lankmarks navigation section
+/// Used by the guide section of EPUB 2.0 and the landmarks navigation section
 /// for EPUB 3.0.
 ///
 /// For more information, see http://www.idpf.org/epub/20/spec/OPF_2.0.1_draft.htm#Section2.3
 /// and https://idpf.github.io/epub-vocabs/structure/
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum ReferenceType {
+    /// A closing statement from the author
+    Afterword,
     /// The Book cover(s) (this refers to the cover PAGE, not the cover IMAGE)
     Cover,
     /// Page with title, author, publisher
@@ -29,7 +31,7 @@ pub enum ReferenceType {
     Acknowledgements,
     /// Bibliography
     Bibliography,
-    /// No idea what this might be
+    /// A short section of production notes particular to the edition (e.g., describing the typeface used)
     Colophon,
     /// Copyright page
     Copyright,

@@ -497,6 +497,7 @@ impl<Z: Zip> EpubBuilder<Z> {
                 if let Some(ref reftype) = file.reftype {
                     use ReferenceType::*;
                     let reftype = match *reftype {
+                        Afterword => "afterword",
                         Cover => "cover",
                         Text => "bodymatter",
                         Toc => "toc",
@@ -504,7 +505,7 @@ impl<Z: Zip> EpubBuilder<Z> {
                         Epigraph => "epigraph",
                         Foreword => "foreword",
                         Preface => "preface",
-                        Notes => "endnotes",
+                        Notes => "endnote",
                         Loi => "loi",
                         Lot => "lot",
                         Colophon => "colophon",
