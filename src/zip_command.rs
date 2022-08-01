@@ -2,9 +2,9 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with
 // this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-use errors::Result;
-use errors::ResultExt;
-use zip::Zip;
+use crate::zip::Zip;
+use crate::Result;
+use crate::ResultExt;
 
 use std::fs;
 use std::fs::DirBuilder;
@@ -40,7 +40,7 @@ impl ZipCommand {
         let temp_dir = TempDir::new("epub").chain_err(|| "could not create temporary directory")?;
         let zip = ZipCommand {
             command: String::from("zip"),
-            temp_dir: temp_dir,
+            temp_dir,
             files: vec![],
         };
         Ok(zip)
@@ -55,7 +55,7 @@ impl ZipCommand {
             .chain_err(|| "could not create temporary directory")?;
         let zip = ZipCommand {
             command: String::from("zip"),
-            temp_dir: temp_dir,
+            temp_dir,
             files: vec![],
         };
         Ok(zip)
@@ -76,7 +76,7 @@ impl ZipCommand {
             .chain_err(|| format!("failed to run command {name}", name = self.command))?;
         if !output.status.success() {
             bail!(
-                "command {name} didn't return succesfully: {output}",
+                "command {name} didn't return successfully: {output}",
                 name = self.command,
                 output = String::from_utf8_lossy(&output.stderr)
             );
@@ -88,7 +88,7 @@ impl ZipCommand {
     fn add_to_tmp_dir<P: AsRef<Path>, R: Read>(&mut self, path: P, mut content: R) -> Result<()> {
         let dest_file = self.temp_dir.path().join(path.as_ref());
         let dest_dir = dest_file.parent().unwrap();
-        if !fs::metadata(dest_dir).is_ok() {
+        if fs::metadata(dest_dir).is_err() {
             // dir does not exist, create it
             DirBuilder::new()
                 .recursive(true)
@@ -144,7 +144,7 @@ impl Zip for ZipCommand {
             .chain_err(|| format!("failed to run command {name}", name = self.command))?;
         if !output.status.success() {
             bail!(
-                "command {name} didn't return succesfully: {output}",
+                "command {name} didn't return successfully: {output}",
                 name = self.command,
                 output = String::from_utf8_lossy(&output.stderr)
             );
@@ -169,7 +169,7 @@ impl Zip for ZipCommand {
             Ok(())
         } else {
             bail!(
-                "command {name} didn't return succesfully: {output}",
+                "command {name} didn't return successfully: {output}",
                 name = self.command,
                 output = String::from_utf8_lossy(&output.stderr)
             );

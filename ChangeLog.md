@@ -1,5 +1,21 @@
 ChangeLog
 ==========
+0.5.0 (2022-01-26)
+=====================
+* Move to Rust 2021 edition
+* Escape invalid  < and > in XHTML code
+
+
+0.4.10 (2022-01-17)
+=======================
+* Fix EPUB3 typo induced in last update.
+	
+0.4.9 (2022-01-17)
+=====================
+* Add support for multiple authors, subjects and descriptions
+* Fix empty lines and indentation of elements
+* Only include the deflate feature for zip
+
 
 0.4.8 (2020-09-29)
 =====================

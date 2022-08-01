@@ -2,10 +2,10 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with
 // this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-use errors::Result;
-use zip::Zip;
-use zip_command::ZipCommand;
-use zip_library::ZipLibrary;
+use crate::errors::Result;
+use crate::zip::Zip;
+use crate::ZipCommand;
+use crate::ZipLibrary;
 
 use std::io::Read;
 use std::io::Write;
@@ -47,7 +47,7 @@ impl ZipCommandOrLibrary {
                 z
             })
             .and_then(|z| z.test().map(|_| z))
-            .map(|z| ZipCommandOrLibrary::Command(z))
-            .or_else(|_| ZipLibrary::new().map(|l| ZipCommandOrLibrary::Library(l)))
+            .map(ZipCommandOrLibrary::Command)
+            .or_else(|_| ZipLibrary::new().map(ZipCommandOrLibrary::Library))
     }
 }

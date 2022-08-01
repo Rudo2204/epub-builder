@@ -2,7 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with
 // this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-use toc::TocElement;
+use crate::TocElement;
 
 use std::io::Read;
 
@@ -90,7 +90,7 @@ impl<R: Read> EpubContent<R> {
     /// (meaning it won't be added to the [`Table of Contents`](struct.Toc.html).
     pub fn new<S: Into<String>>(href: S, content: R) -> Self {
         EpubContent {
-            content: content,
+            content,
             toc: TocElement::new(href, ""),
             reftype: None,
         }
